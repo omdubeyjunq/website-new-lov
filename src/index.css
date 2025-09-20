@@ -8,51 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Apple-inspired Design System */
-    --background: 0 0% 100%;
-    --foreground: 210 6% 14%;
+    /* Apple Dark Mode - Premium */
+    --background: 0 0% 6%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 6% 14%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 6% 14%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 210 6% 14%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 260 100% 80%;
+    --primary-foreground: 0 0% 6%;
 
-    --secondary: 210 4% 98%;
-    --secondary-foreground: 210 6% 14%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 4% 96%;
-    --muted-foreground: 210 6% 46%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 220 65% 59%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 260 100% 80%;
+    --accent-foreground: 0 0% 6%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 6% 92%;
-    --input: 210 6% 92%;
-    --ring: 220 65% 59%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 260 100% 80%;
 
-    --radius: 12px;
+    --radius: 16px;
 
-    /* Apple-style gradients and colors */
-    --hero-gradient: linear-gradient(135deg, 210 6% 14% 0%, 210 6% 24% 100%);
-    --glass-bg: 0 0% 100% / 0.8;
-    --accent-gradient: linear-gradient(135deg, 220 65% 59% 0%, 225 70% 65% 100%);
-    --hero-text-gradient: linear-gradient(135deg, 210 6% 14% 0%, 210 6% 34% 100%);
+    /* Apple Dark Theme Gradients */
+    --hero-gradient: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), transparent);
+    --glass-bg: 0 0% 8% / 0.7;
+    --accent-gradient: linear-gradient(135deg, hsl(260 100% 80%), hsl(280 100% 85%));
+    --hero-text-gradient: linear-gradient(135deg, hsl(0 0% 98%), hsl(0 0% 85%));
+    --skill-gradient: linear-gradient(135deg, hsl(260 100% 80% / 0.1), hsl(280 100% 85% / 0.1));
     
-    /* Premium shadows */
-    --shadow-soft: 0 4px 24px hsl(210 6% 14% / 0.06);
-    --shadow-medium: 0 8px 32px hsl(210 6% 14% / 0.08);
-    --shadow-strong: 0 16px 64px hsl(210 6% 14% / 0.12);
+    /* Premium Dark Shadows */
+    --shadow-soft: 0 4px 24px hsl(0 0% 0% / 0.15);
+    --shadow-medium: 0 8px 32px hsl(0 0% 0% / 0.25);
+    --shadow-strong: 0 16px 64px hsl(0 0% 0% / 0.35);
+    --shadow-glow: 0 0 40px hsl(260 100% 80% / 0.3);
 
-    /* Apple transitions */
+    /* Apple Premium Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-spring: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    --transition-glow: all 0.4s ease;
 
     --sidebar-background: 0 0% 98%;
 
@@ -168,5 +171,38 @@ All colors MUST be HSL.
 
   .transition-spring {
     transition: var(--transition-spring);
+  }
+
+  /* Premium effects for captivating design */
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(260 100% 80% / 0.5);
+  }
+
+  .skill-card {
+    background: var(--skill-gradient);
+    border: 1px solid hsl(260 100% 80% / 0.2);
+    backdrop-filter: blur(20px);
+  }
+
+  .project-card {
+    background: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 12%));
+    border: 1px solid hsl(0 0% 15%);
+  }
+
+  /* Animated background */
+  .animated-bg {
+    background: var(--hero-gradient);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
