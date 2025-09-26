@@ -1,170 +1,102 @@
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Mail, MessageSquare, Send } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { Mail, MessageSquare, Sparkles } from "lucide-react";
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const { toast } = useToast();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Create mailto link
-    const mailtoLink = `mailto:omdubeyyy@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Hi Om,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
-    )}`;
-    
-    window.location.href = mailtoLink;
-    
-    toast({
-      title: "Opening email client...",
-      description: "Your default email client will open with the message pre-filled.",
-    });
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    });
-  };
-
   return (
-    <section id="contact" className="py-24">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
+    <section id="contact" className="py-32 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 animated-bg opacity-20" />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Contact Me</h2>
-            <div className="w-24 h-1 bg-accent mx-auto rounded-full" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-center mb-20 space-y-6">
+            <div className="flex items-center justify-center gap-2 text-accent font-medium">
+              <Sparkles className="w-5 h-5" />
+              GET IN TOUCH
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold glow-text">
+              Contact <span className="text-accent">Me</span>
+            </h2>
+            <div className="w-32 h-1 bg-accent mx-auto rounded-full glow-effect" />
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Have a project, idea or problem you'd like to discuss? Let's connect!
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Contact Info */}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Left Column - Info */}
             <div className="space-y-8">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold">Let's work together</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  I'm always interested in discussing new opportunities, innovative projects, 
-                  and ways to help businesses grow through better product experiences.
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 glow-text">
+                  Let's work together
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  I'm always interested in discussing new opportunities, innovative projects, and ways to help businesses grow through better product experiences.
                 </p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-accent" />
+              {/* Contact Info Cards */}
+              <div className="space-y-6">
+                <Card className="p-6 shadow-medium hover:shadow-strong transition-all duration-300 group">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-accent/10 rounded-xl group-hover:bg-accent/20 transition-colors duration-300">
+                      <Mail className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Email</h4>
+                      <a 
+                        href="mailto:omdubeyyy@gmail.com" 
+                        className="text-muted-foreground hover:text-accent transition-colors duration-300"
+                      >
+                        omdubeyyy@gmail.com
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium">Email</div>
-                    <a 
-                      href="mailto:omdubeyyy@gmail.com" 
-                      className="text-muted-foreground hover:text-accent transition-smooth"
-                    >
-                      omdubeyyy@gmail.com
-                    </a>
-                  </div>
-                </div>
+                </Card>
 
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-accent" />
+                <Card className="p-6 shadow-medium hover:shadow-strong transition-all duration-300 group">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-accent/10 rounded-xl group-hover:bg-accent/20 transition-colors duration-300">
+                      <MessageSquare className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Response Time</h4>
+                      <p className="text-muted-foreground">Usually within 24 hours</p>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium">Response Time</div>
-                    <div className="text-muted-foreground">Usually within 24 hours</div>
-                  </div>
-                </div>
+                </Card>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <Card className="shadow-soft">
-              <CardHeader>
-                <CardTitle className="text-xl">Send a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Your Name</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="John Doe"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Your Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="john@example.com"
-                        required
-                      />
-                    </div>
+            {/* Right Column - Google Form */}
+            <div className="lg:sticky lg:top-8">
+              <Card className="p-6 shadow-strong hover:shadow-glow transition-all duration-500 overflow-hidden">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl text-center text-foreground">
+                    Send a Message
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  {/* Google Form Iframe */}
+                  <div className="relative rounded-lg overflow-hidden border border-accent/20 bg-card/50 backdrop-blur-sm">
+                    <iframe 
+                      src="https://docs.google.com/forms/d/e/1FAIpQLSdGL88AeSyQzxYgrabj5TOz_y8pSH8yjRu0jJMX-XihHPP4gA/viewform?embedded=true" 
+                      width="100%" 
+                      height={700} 
+                      frameBorder={0} 
+                      marginHeight={0} 
+                      marginWidth={0}
+                      className="w-full"
+                      title="Contact Form"
+                      style={{ minHeight: '700px' }}
+                    >
+                      Loading contact form...
+                    </iframe>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="Let's discuss a project"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Tell me about your project or idea..."
-                      className="min-h-[120px] resize-none"
-                      required
-                    />
-                  </div>
-
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
-                    Send Message
-                    <Send className="w-4 h-4" />
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
