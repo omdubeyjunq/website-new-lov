@@ -31,23 +31,13 @@ export const About = () => {
             {/* Stats/Highlights */}
             <div className="grid grid-cols-2 gap-4">
               <Card className="p-6 text-center space-y-2 shadow-soft">
-                <div className="text-3xl font-bold text-accent">3+</div>
+                <div className="text-3xl font-bold text-accent">4+</div>
                 <div className="text-sm text-muted-foreground">Years Experience</div>
               </Card>
               
               <Card className="p-6 text-center space-y-2 shadow-soft">
                 <div className="text-3xl font-bold text-accent">15+</div>
                 <div className="text-sm text-muted-foreground">Projects Completed</div>
-              </Card>
-              
-              <Card className="p-6 text-center space-y-2 shadow-soft">
-                <div className="text-3xl font-bold text-accent">92%</div>
-                <div className="text-sm text-muted-foreground">Retention Rate</div>
-              </Card>
-              
-              <Card className="p-6 text-center space-y-2 shadow-soft">
-                <div className="text-3xl font-bold text-accent">5K+</div>
-                <div className="text-sm text-muted-foreground">Registrations</div>
               </Card>
             </div>
           </div>

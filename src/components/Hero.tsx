@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Sparkles } from "lucide-react";
-import omProfile from "@/assets/om-profile.jpg";
+import omProfile from "@/assets/om-real-profile.jpg";
 
 export const Hero = () => {
   const scrollToAbout = () => {
@@ -72,7 +72,7 @@ export const Hero = () => {
               
               {/* Floating badge */}
               <div className="absolute -bottom-4 -right-4 bg-card border border-accent/30 rounded-2xl p-3 shadow-medium backdrop-blur-sm">
-                <div className="text-sm font-medium text-accent">Product Manager</div>
+                <div className="text-sm font-medium text-accent">Founder's Office</div>
               </div>
             </div>
           </div>
