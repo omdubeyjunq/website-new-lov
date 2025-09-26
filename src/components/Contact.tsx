@@ -1,7 +1,57 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, MessageSquare, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, MessageSquare, Sparkles, Send, ExternalLink } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const { toast } = useToast();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Pre-fill Google Form URL with data
+    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdGL88AeSyQzxYgrabj5TOz_y8pSH8yjRu0jJMX-XihHPP4gA/viewform";
+    const params = new URLSearchParams({
+      "entry.1234567890": formData.name, // Replace with actual entry IDs from your form
+      "entry.0987654321": formData.email,
+      "entry.1122334455": formData.subject,
+      "entry.5566778899": formData.message
+    });
+    
+    // Open Google Form in new tab with pre-filled data
+    window.open(`${googleFormUrl}?${params.toString()}`, '_blank');
+    
+    toast({
+      title: "Redirecting to form...",
+      description: "Opening Google Form with your details pre-filled.",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    });
+  };
+
   return (
     <section id="contact" className="py-32 relative overflow-hidden">
       {/* Background */}
@@ -69,32 +119,102 @@ export const Contact = () => {
               </div>
             </div>
 
-            {/* Right Column - Google Form */}
+            {/* Right Column - Beautiful Custom Form */}
             <div className="lg:sticky lg:top-8">
-              <Card className="p-6 shadow-strong hover:shadow-glow transition-all duration-500 overflow-hidden">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-xl text-center text-foreground">
-                    Send a Message
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  {/* Google Form Iframe */}
-                  <div className="relative rounded-lg overflow-hidden border border-accent/20 bg-card/50 backdrop-blur-sm">
-                    <iframe 
-                      src="https://docs.google.com/forms/d/e/1FAIpQLSdGL88AeSyQzxYgrabj5TOz_y8pSH8yjRu0jJMX-XihHPP4gA/viewform?embedded=true" 
-                      width="100%" 
-                      height={700} 
-                      frameBorder={0} 
-                      marginHeight={0} 
-                      marginWidth={0}
-                      className="w-full"
-                      title="Contact Form"
-                      style={{ minHeight: '700px' }}
-                    >
-                      Loading contact form...
-                    </iframe>
-                  </div>
-                </CardContent>
+              <Card className="p-8 shadow-strong hover:shadow-glow transition-all duration-500 group relative overflow-hidden">
+                {/* Card glow effect */}
+                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <CardHeader className="p-0 mb-8">
+                    <CardTitle className="text-2xl font-bold text-center text-foreground">
+                      Send a Message
+                    </CardTitle>
+                    <p className="text-center text-muted-foreground mt-2">
+                      Fill out the form and I'll get back to you soon
+                    </p>
+                  </CardHeader>
+                  
+                  <CardContent className="p-0">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label htmlFor="name" className="text-sm font-medium text-foreground">
+                            Your Name *
+                          </label>
+                          <Input
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            placeholder="John Doe"
+                            className="bg-background/50 border-accent/20 focus:border-accent focus:ring-accent/20 transition-all duration-300"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor="email" className="text-sm font-medium text-foreground">
+                            Your Email *
+                          </label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            placeholder="john@example.com"
+                            className="bg-background/50 border-accent/20 focus:border-accent focus:ring-accent/20 transition-all duration-300"
+                            required
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label htmlFor="subject" className="text-sm font-medium text-foreground">
+                          Subject *
+                        </label>
+                        <Input
+                          id="subject"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          placeholder="Let's discuss a project"
+                          className="bg-background/50 border-accent/20 focus:border-accent focus:ring-accent/20 transition-all duration-300"
+                          required
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label htmlFor="message" className="text-sm font-medium text-foreground">
+                          Message *
+                        </label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          placeholder="Tell me about your project or idea..."
+                          rows={5}
+                          className="bg-background/50 border-accent/20 focus:border-accent focus:ring-accent/20 resize-none transition-all duration-300"
+                          required
+                        />
+                      </div>
+                      
+                      <Button 
+                        type="submit" 
+                        className="w-full glow-effect bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-glow transition-all duration-300 group"
+                        size="lg"
+                      >
+                        Send Message
+                        <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                      </Button>
+                      
+                      <p className="text-xs text-center text-muted-foreground">
+                        This will open a secure Google Form with your details pre-filled
+                      </p>
+                    </form>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>
